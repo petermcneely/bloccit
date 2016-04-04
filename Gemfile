@@ -30,3 +30,5 @@ gem 'jquery-rails'
 gem 'turbolinks'
 # Bootstrap for stylesheets
 gem 'bootstrap-sass'
+# Pry
+gem 'pry-rails', :group => :development
