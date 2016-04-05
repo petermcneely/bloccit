@@ -17,6 +17,9 @@ post = Post.all
   )
 end
 
+post = Post.find_or_create_by(title: "Idempotence Post", body: "Here is my post about idempotence.")
+Comment.find_or_create_by(post: post, body: "Here is my comment about idempotence.")
+
 puts "Seeds finished."
 puts "#{Post.count} posts created"
 puts "#{Comment.count} comments created"
