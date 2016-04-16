@@ -25,4 +25,8 @@ module RandomData
     letters[0, rand(3..8)].join
   end
 
+  def self.random_price
+    rand(1..100)
+  end
+
 end

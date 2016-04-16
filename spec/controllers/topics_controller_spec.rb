@@ -110,8 +110,10 @@ RSpec.describe TopicsController, type: :controller do
   describe "DELETE destroy" do
     it "deletes the topic" do
       delete :destroy, {id: my_topic.id}
-      count = Post.where({id: my_topic.id}).size
-      expect(count).to eq 0
+      post_count = Post.where({id: my_topic.id}).size
+      sponsored_post_count = SponsoredPost.where({id: my_topic.id}).size
+      expect(post_count).to eq 0
+      expect(sponsored_post_count).to eq 0
     end
 
     it "redirects to the topics index" do
