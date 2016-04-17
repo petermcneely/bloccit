@@ -1,6 +1,16 @@
 class User < ActiveRecord::Base
   before_save {self.email = email.downcase}
 
+  before_save {
+    if name
+      userName_array = []
+      name.split.each do |portion|
+        userName_array << portion.capitalize
+      end
+      self.name = userName_array.join(" ")
+    end
+  }
+
   validates :name, length: {minimum: 1, maximum: 100}, presence: true
 
   validates :password, presence: true, length: {minimum: 6}, unless: :password_digest

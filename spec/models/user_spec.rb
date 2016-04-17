@@ -36,4 +36,12 @@ RSpec.describe User, type: :model do
       expect(user_with_invalid_email).to_not be_valid
     end
   end
+
+  describe "proper name" do
+    it "should have a name with capitalized first letters" do
+      user.name = "bloc user"
+      user.save
+      expect(user.name).to eq "Bloc User"
+    end
+  end
 end
