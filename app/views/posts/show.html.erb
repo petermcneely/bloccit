@@ -1,12 +1,21 @@
 <h1>
   <%= @post.title %>
-  <small>
-    submitted <%= time_ago_in_words(@post.created_at) %> ago by <%= @post.user.name %>
-  </small>
+  <div>
+    <small>
+      submitted <%= time_ago_in_words(@post.created_at) %> ago by <%= @post.user.name %>
+    </small>
+  </div>
 </h1>
 <div class="row">
   <div class="col-md-8">
     <p><%= @post.body %></p>
+    <div>
+      <h3>Comments</h3>
+      <%= render @post.comments %>
+      <% if current_user %>
+        <%= render 'comments/form', comment: Comment.new, post: @post %>
+      <% end %>
+    </div>
   </div>
   <% if user_is_authorized_for_post?(@post) %>
     <div class="col-md-4">

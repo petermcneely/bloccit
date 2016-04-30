@@ -29,12 +29,13 @@ topics = Topic.all
     user: users.sample
     )
 end
-post = Post.all
+posts = Post.all
 
 #Create Comments
 100.times do
   Comment.create!(
-  post: post.sample,
+  user: users.sample,
+  post: posts.sample,
   body: RandomData.random_paragraph
   )
 end
