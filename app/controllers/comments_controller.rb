@@ -3,8 +3,8 @@ class CommentsController < ApplicationController
   before_action :authorize_user, only: [:destroy]
 
   def create
-    @post = Post.find(params[:post_id])
-    comment = @post.comments.new(comment_params)
+    @labelable = get_labelable(params)
+    comment = @labelable.comments.new(comment_params)
     comment.user = current_user
 
     if comment.save
@@ -12,19 +12,19 @@ class CommentsController < ApplicationController
     else
       flash[:alert] = "Comment failed to save."
     end
-    redirect_to [@post.topic, @post]
+    handle_redirect(@labelable)
   end
 
   def destroy
-    @post = Post.find(params[:post_id])
-    comment = @post.comments.find(params[:id])
+    @labelable = get_labelable(params)
+    comment = @labelable.comments.find(params[:id])
 
     if comment.destroy
       flash[:notice] = "Comment was deleted successfully."
     else
       flash[:alert] = "Comment could not be deleted. Try again."
     end
-    redirect_to [@post.topic, @post]
+    handle_redirect(@labelable)
   end
 
   private
@@ -36,7 +36,19 @@ class CommentsController < ApplicationController
     comment = Comment.find(params[:id])
     unless current_user == comment.user || current_user.admin?
       flash[:alert] = "You do not have permissions to delete the comment."
-      redirect_to [comment.post.topic, comment.post]
+      handle_redirect(comment.labelable)
+    end
+  end
+
+  def get_labelable(params)
+    params[:post_id]? Post.find(params[:post_id]) : Topic.find(params[:topic_id])
+  end
+
+  def handle_redirect(labelable)
+    if labelable.is_a? Topic
+      redirect_to [labelable]
+    else
+      redirect_to [labelable.topic, labelable]
     end
   end
 end

@@ -32,13 +32,15 @@ end
 posts = Post.all
 
 #Create Comments
+=begin
 100.times do
   Comment.create!(
   user: users.sample,
-  post: posts.sample,
+  labelable: posts.sample,
   body: RandomData.random_paragraph
   )
 end
+=end
 
 #Create an admin user
 admin = User.create!(
