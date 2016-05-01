@@ -76,5 +76,19 @@ RSpec.describe Post, type: :model do
         expect(post.rank).to eq(old_rank - 1)
       end
     end
+
+    describe "#create_vote" do
+      it "checks to see that a newly created post gets a vote from its creator" do
+        post = topic.posts.create!(title: title, body: body, user: user)
+        expect(post.votes.count).to eq 1
+        expect(post.votes.first.user). to eq user
+      end
+
+      it "gives a newly created post an automatic up vote from the creator" do
+        post = topic.posts.create!(title: title, body: body, user: user)
+        expect(post.points).to eq 1
+      end
+    end
+
   end
 end
