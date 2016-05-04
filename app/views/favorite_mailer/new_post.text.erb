@@ -1,0 +1,6 @@
+You are now following your post: "<%= @post.title %>"
+<%= "=" * (@post.title.length + 12) %>
+
+You will receive an email when a user comments on this post.
+
+Visit online at: <%= topic_post_url(@post.topic, @post) %>

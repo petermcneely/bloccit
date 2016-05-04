@@ -31,4 +31,12 @@ class Post < ActiveRecord::Base
     new_rank = points + age_in_days
     update_attribute(:rank, new_rank)
   end
+
+  after_create :create_favorite
+
+  private
+  def create_favorite
+    user.favorites.where(post: self).create
+    FavoriteMailer.new_post(user, self).deliver_now
+  end
 end
