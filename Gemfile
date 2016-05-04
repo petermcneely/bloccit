@@ -17,6 +17,9 @@ end
 group :development, :test do
   gem 'rspec-rails', '~> 3.0'
   gem 'shoulda'
+  gem 'byebug'
+  gem 'better_errors'
+  gem "binding_of_caller"
 end
 
 # Use SCSS for stylesheets
@@ -33,3 +36,5 @@ gem 'turbolinks'
 gem 'bootstrap-sass'
 # Used for encrypting User passwords
 gem 'bcrypt'
+# Used for environment variables
+gem 'figaro', '1.0'
