@@ -35,4 +35,7 @@ module RandomData
     "#{random_word}@#{random_word}.#{random_word}"
   end
 
+  def self.random_vote
+    rand(0..1) == 0 ? -1 : 1
+  end
 end

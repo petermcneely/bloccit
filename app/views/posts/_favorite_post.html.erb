@@ -1,0 +1,14 @@
+<div class="media">
+  <%= render partial: "votes/voter", locals: {post: favorite_post} %>
+  <div class="media-body">
+    <h4 class="media-heading">
+      <%= link_to favorite_post.title, topic_post_path(favorite_post.topic, favorite_post) %>
+      <%= render partial: "labels/list", locals: {labels: favorite_post.labels} %>
+    </h4>
+    <%= link_to image_tag(favorite_post.user.avatar_url(48), class: 'gravatar pull-left'), user_path(favorite_post.user) %>
+    <small>
+      submitted <%= time_ago_in_words(favorite_post.created_at) %> ago by <%= favorite_post.user.name %> <br/>
+      <%= favorite_post.comments.count %> Comments
+    </small>
+  </div>
+</div>

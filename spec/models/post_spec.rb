@@ -73,4 +73,12 @@ RSpec.describe Post, type: :model do
       end
     end
   end
+
+  describe "favorited_by scope" do
+    it "ensures the user has favorited the post" do
+      user.favorites.create(post: post)
+      expect(Post.favorited_by(user)).to eq([post])
+    end
+  end
+
 end
