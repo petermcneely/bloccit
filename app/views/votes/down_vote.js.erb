@@ -1,0 +1,1 @@
+$('.js-down-vote-<%= @post.id %>').html('<%= content_tag :strong, @post.points, class: "js-up-vote-#{@post.id} js-down-vote-#{@post.id}"%>');
