@@ -1,8 +1,9 @@
 require 'rails_helper'
 
-RSpec.describe Api::V1::TopicsController, type: :controller do
+RSpec.describe Api::V1::PostsController, type: :controller do
   let(:my_user) {create(:user)}
   let(:my_topic) {create(:topic)}
+  let(:my_post) {create(:post, topic: my_topic)}
 
   context "unauthenticated user" do
     it "GET index returns http success" do
@@ -11,13 +12,13 @@ RSpec.describe Api::V1::TopicsController, type: :controller do
     end
 
     it "GET show returns http success" do
-      get :show, id: my_topic.id
+      get :show, id: my_post.id
       expect(response).to have_http_status(:success)
     end
 
-    it "GET show includes child posts" do
-      get :show, id: my_topic.id
-      expect(JSON.parse(response.body)["posts"]).to_not be_nil
+    it "GET show includes child comments" do
+      get :show, id: my_post.id
+      expect(JSON.parse(response.body)["comments"]).to_not be_nil
     end
   end
 
@@ -32,13 +33,13 @@ RSpec.describe Api::V1::TopicsController, type: :controller do
     end
 
     it "GET show returns http success" do
-      get :show, id: my_topic.id
+      get :show, id: my_post.id
       expect(response).to have_http_status(:success)
     end
 
-    it "GET show includes child posts" do
-      get :show, id: my_topic.id
-      expect(JSON.parse(response.body)["posts"]).to_not be_nil
+    it "GET show includes child comments" do
+      get :show, id: my_post.id
+      expect(JSON.parse(response.body)["comments"]).to_not be_nil
     end
   end
 end
